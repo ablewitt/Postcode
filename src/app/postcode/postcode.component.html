@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <form [formGroup]="postcodeUIForm">
+    <div class="mb-3 mt-3">
+      <label for="country" class="form-label">Country:</label>
+      <input type="country" class="form-control" id="country" placeholder="Enter country" name="country"
+        formControlName="countryField">
+    </div>
+    <div class="mb-3">
+      <label for="postcode" class="form-label">Postcode:</label>
+      <input type="text" class="form-control" id="postcode" placeholder="Enter postcode" name="postcode"
+        formControlName="postcodeField">
+    </div>
+    <button [ngClass]="postcodeUIForm.valid? '': 'disabled'" type="text" class="btn btn-primary"
+      (click)="sendQuery()">Submit</button>
+  </form>
+</div>
+<div *ngIf="postcodeData" class="p-3">
+  <p>Postcode information:
+    {{postcodeData['country']}} - {{postcodeData['country abbreviation']}} {{postcodeData['post code']}}</p>
+  <div class="row">
+    <div class="col-sm-6" *ngFor="let place of postcodeData.places">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h5 class="card-title">{{place['place name']}}</h5>
+          <p class="card-text">{{place['state']}} - {{place['state abbreviation']}}</p>
+        </div>
+        <div class="card-body">
+          <a href="https://maps.google.com/?q={{place['latitude']}},{{place['longitude']}}" 
+          class="btn btn-primary" target=”_blank”>Google Maps</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
